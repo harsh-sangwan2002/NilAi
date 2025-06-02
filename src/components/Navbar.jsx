@@ -8,6 +8,8 @@ const navItems = ["Problem", "Solution", "Proposition", "Strategies", "Team", "C
 const NavBar = () => {
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [isIndicatorActive, setIsIndicatorActive] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   const audioElementRef = useRef(null);
 
@@ -24,8 +26,32 @@ const NavBar = () => {
     }
   }, [isAudioPlaying]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY < lastScrollY) {
+        setShowNavbar(true); // scrolling up
+      } else {
+        setShowNavbar(false); // scrolling down
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-gray-900 shadow-md h-16 sm:inset-x-6 transition-all duration-300">
+    <div
+      className={clsx(
+        "w-full bg-gray-900 shadow-md h-16 sm:inset-x-6 transition-all duration-300 z-50",
+        {
+          "sticky top-0": showNavbar,
+          "opacity-0 -translate-y-full": !showNavbar,
+          "opacity-100 translate-y-0": showNavbar,
+        }
+      )}
+    >
       <header className="h-full w-full">
         <nav className="flex h-full items-center justify-between px-4">
           {/* Logo and Product button */}

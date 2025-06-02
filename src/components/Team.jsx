@@ -10,20 +10,20 @@ const TeamProfiles = () => {
       name: "JEBARSON RAVIKUMAR",
       title: "Chief Executive Officer / Co-Founder",
       description:
-        "• MSc Business Management, University of London (2024-2025).\n" +
-        "• Founding Partner at Zentry, focusing on strategic growth and innovation.\n" +
-        "• Passionate about leveraging technology to empower communities.\n" +
-        "• Driven by a vision to create impactful solutions.",
+        "• MSc Business Management, Imperial College London (2024-2025).\n" +
+        "• B.Tech in Mechnical Engineering, Vellore Insitiute Of Technology\n" +
+        "• Former PwC Associate Consultant with expertise in business optimzation and strategy.\n" +
+        "• Proven leader with expertise in technology consulting & government projects.",
       imageSrc: "/img/ravi.jpeg",
     },
     {
       name: "JAGATHEESWARI MANIVASAKAN",
       title: "Chief Technology & Innovation Officer / Co-Founder",
       description:
-        "• MSc Computer Science, University of London (2024-2025).\n" +
-        "• Founding Partner at Zentry, speaheaded the tech development.\n" +
-        "• Enthusiast in AI, ML, Data Science, blockchain, and immersive tech.\n" +
-        "• Committed to transforming ideas into reality.",
+        "• MSc Computer Science, Imperial College London (2024-2025).\n" +
+        "• B.E in Electrnoics & Communication Engineering, Anna University.\n" +
+        "• Diploma in Data Science, IIT Madras.\n" +
+        "• Former KPMG Analyst specializing in technology enablement & automation.",
       imageSrc: "/img/manvi.jpeg",
     },
   ];
