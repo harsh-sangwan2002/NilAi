@@ -27,9 +27,9 @@ const Problem = () => {
   });
 
   return (
-    <div id="problem" className="min-h-screen w-screen">
-      <div className="relative mb-8 mt-36 flex flex-col items-center gap-5">
-        <p className="font-general text-sm uppercase md:text-[20px] text-white">
+    <div id="problem" className="min-100vh w-100vw relative">
+      <div className="relative mb-5 mt-60 flex flex-col items-center gap-5">
+        <p className="font-general mt-10 text-sm uppercase md:text-[20px] text-white">
           Welcome to NilAi
         </p>
 
@@ -38,8 +38,8 @@ const Problem = () => {
           containerClass="mt-5 !text-lime-400 text-center"
         />
 
-        <div className="about-subtext mt-30">
-          <p className="text-lime-400 mt-30">A Sustainability Challenge in HealthCare </p>
+        <div className="about-subtext mt-100">
+          <p className="text-lime-400 mt-100">A Sustainability Challenge in HealthCare</p>
           <p className="text-white">
             - NHS hospitals face rising operational costs, inefficient resource use, and increasing sustainability pressures.Despite ambitious net-zero targets, challenges in data fragmentation, waste management, and energy inefficiences persis, leading to
           </p>

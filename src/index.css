@@ -10,9 +10,13 @@
 
 body {
   width: 100dvw;
-  overflow-x: hidden;
   background-color: #111827;
+  overflow-x: hidden;
   font-family: "General Sans", sans-serif;
+}
+
+#problem {
+  background-color: #111827;
 }
 
 .app-container {

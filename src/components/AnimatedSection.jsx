@@ -34,7 +34,12 @@ export default function AnimatedSection({ id, title, content, align = 'left' }) 
         >
             {isLeft && (
                 <>
-                    <Tilt className="w-[45%]">
+                    <Tilt
+                        className="w-[45%]"
+                        tiltEnable={true}
+                        tiltAngleXInitial={5}
+                        tiltAngleYInitial={5}
+                    >
                         <h1 ref={textRef} className="text-3xl md:text-4xl leading-relaxed">
                             <span className="text-pink-500 font-bold">{title}</span> {content}
                         </h1>
@@ -45,7 +50,12 @@ export default function AnimatedSection({ id, title, content, align = 'left' }) 
             {!isLeft && (
                 <>
                     <div className="w-[45%]"></div>
-                    <Tilt className="w-[45%]">
+                    <Tilt
+                        className="w-[45%]"
+                        tiltEnable={true}
+                        tiltAngleXInitial={10}
+                        tiltAngleYInitial={10}
+                    >
                         <h1 ref={textRef} className="text-3xl md:text-4xl leading-relaxed text-right">
                             <span className="text-pink-500 font-bold">{title}</span> {content}
                         </h1>

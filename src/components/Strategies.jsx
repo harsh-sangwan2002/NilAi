@@ -47,7 +47,7 @@ const sections = [
     },
 ];
 
-export default function App() {
+export default function Strategies() {
     const { scrollY } = useScroll();
     const y = useTransform(scrollY, [0, 500], [0, -100]);
 
@@ -82,13 +82,15 @@ export default function App() {
                 style={{
                     y,
                     position: 'fixed',
-                    top: 0,
+                    top: 100,
                     left: 0,
                     width: '100vw',
                     height: '100vh',
                     backgroundImage: `url(${currentBg})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
+                    objectFit: 'contain',
+                    backgroundRepeat: 'no-repeat',
                     zIndex: -1,
                     pointerEvents: 'none',
                     transition: 'background-image 0.5s ease-in-out',
