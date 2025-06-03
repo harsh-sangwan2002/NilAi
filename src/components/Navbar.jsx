@@ -44,7 +44,7 @@ const NavBar = () => {
   return (
     <div
       className={clsx(
-        "w-full bg-gray-900 shadow-md h-16 sm:inset-x-6 transition-all duration-300 z-50",
+        "w-full px-10 bg-gray-900 shadow-md h-16 sm:inset-x-6 transition-all duration-300 z-50",
         {
           "sticky top-0": showNavbar,
           "opacity-0 -translate-y-full": !showNavbar,
@@ -56,7 +56,7 @@ const NavBar = () => {
         <nav className="flex h-full items-center justify-between px-4">
           {/* Logo and Product button */}
           <div className="flex items-center gap-7">
-            <img src="/img/logo2.png" alt="logo" className="w-10 rounded-full" />
+            <img src="/img/logo.png" alt="logo" className="w-10 rounded-full" />
             <a href="#hero">
               <Button
                 id="product-button"
