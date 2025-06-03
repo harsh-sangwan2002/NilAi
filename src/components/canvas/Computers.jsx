@@ -46,9 +46,9 @@ const ComputersCanvas = ({ scrollProgress }) => {
     const [isMobile, setIsMobile] = useState(false);
     const controlsRef = useRef();
     const canvasRef = useRef();
+    const cameraRef = useRef();
     const [isDragging, setIsDragging] = useState(false);
-    const [startY, setStartY] = useState(0);
-    const [modelY, setModelY] = useState(isMobile ? -3 : -3.25); // Initial Y position
+    const [modelY, setModelY] = useState(-3.25);
 
     useEffect(() => {
         const mediaQuery = window.matchMedia("(max-width: 500px)");
@@ -60,45 +60,62 @@ const ComputersCanvas = ({ scrollProgress }) => {
         return () => mediaQuery.removeEventListener("change", handleChange);
     }, []);
 
+    // Drag-to-move Y-axis interaction
     useEffect(() => {
         const canvas = canvasRef.current;
         let lastY = 0;
 
-        const handleMouseDown = (event) => {
-            if (event.button === 0) { // Left-click
+        const handleMouseDown = (e) => {
+            if (e.button === 0) {
                 setIsDragging(true);
-                setStartY(event.clientY);
-                lastY = event.clientY;
+                lastY = e.clientY;
             }
         };
 
-        const handleMouseMove = (event) => {
+        const handleMouseMove = (e) => {
             if (isDragging) {
-                const deltaY = event.clientY - lastY;
-                lastY = event.clientY;
-                setModelY((prev) => {
-                    const newY = prev - deltaY * 0.01; // Adjust sensitivity
-                    return Math.max(-5, Math.min(1, newY)); // Clamp between -5 and 1
-                });
+                const deltaY = e.clientY - lastY;
+                lastY = e.clientY;
+                setModelY((prev) => Math.max(-5, Math.min(1, prev - deltaY * 0.01)));
             }
         };
 
-        const handleMouseUp = () => {
-            setIsDragging(false);
-        };
+        const stopDragging = () => setIsDragging(false);
 
         canvas.addEventListener("mousedown", handleMouseDown);
         canvas.addEventListener("mousemove", handleMouseMove);
-        canvas.addEventListener("mouseup", handleMouseUp);
-        canvas.addEventListener("mouseleave", handleMouseUp); // Stop dragging if mouse leaves canvas
+        canvas.addEventListener("mouseup", stopDragging);
+        canvas.addEventListener("mouseleave", stopDragging);
 
         return () => {
             canvas.removeEventListener("mousedown", handleMouseDown);
             canvas.removeEventListener("mousemove", handleMouseMove);
-            canvas.removeEventListener("mouseup", handleMouseUp);
-            canvas.removeEventListener("mouseleave", handleMouseUp);
+            canvas.removeEventListener("mouseup", stopDragging);
+            canvas.removeEventListener("mouseleave", stopDragging);
         };
     }, [isDragging]);
+
+    // Manual zoom control
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        const handleWheel = (e) => {
+            if (!(e.ctrlKey || e.metaKey)) return;
+
+            e.preventDefault(); // prevent default scroll
+            const zoomSpeed = 0.05;
+            if (cameraRef.current) {
+                const newZoom = cameraRef.current.zoom + (e.deltaY > 0 ? -zoomSpeed : zoomSpeed);
+                cameraRef.current.zoom = Math.min(2, Math.max(0.5, newZoom));
+                cameraRef.current.updateProjectionMatrix();
+            }
+        };
+
+        canvas.addEventListener("wheel", handleWheel, { passive: false });
+
+        return () => {
+            canvas.removeEventListener("wheel", handleWheel);
+        };
+    }, []);
 
     return (
         <Canvas
@@ -107,17 +124,18 @@ const ComputersCanvas = ({ scrollProgress }) => {
             shadows
             dpr={[1, 2]}
             camera={{ position: [100, 5, 5], fov: 25, zoom: 1 }}
+            onCreated={({ camera }) => {
+                cameraRef.current = camera;
+            }}
             gl={{ preserveDrawingBuffer: true }}
         >
             <Suspense fallback={<CanvasLoader />}>
                 <OrbitControls
                     ref={controlsRef}
-                    enableZoom={true}
+                    enableZoom={false} // Disable default zoom
                     maxPolarAngle={Math.PI / 2}
                     minPolarAngle={Math.PI / 2}
                     enablePan={false}
-                    minZoom={0.5}
-                    maxZoom={2}
                 />
                 <ComputersModel
                     isMobile={isMobile}
@@ -129,5 +147,6 @@ const ComputersCanvas = ({ scrollProgress }) => {
         </Canvas>
     );
 };
+
 
 export default ComputersCanvas;

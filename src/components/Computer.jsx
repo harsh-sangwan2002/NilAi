@@ -51,14 +51,52 @@ const Computer = () => {
     const sectionCount = sections.length;
     const progressPerSection = 1 / sectionCount;
 
+    // Transition ComputersCanvas from full width to half width
+    const canvasWidth = useTransform(
+        scrollYProgress,
+        [0, 0.5],
+        ["100%", "50%"]
+    );
+
+    // Move canvas to right once it reaches 50% scroll
+    const canvasLeft = useTransform(
+        scrollYProgress,
+        [0, 0.5],
+        ["0%", "50%"]
+    );
+
+    const showText = useTransform(
+        scrollYProgress,
+        [0.45, 0.5],
+        [0, 1]
+    );
+
     return (
         <section
             ref={ref}
             className="relative w-full h-[600vh] mx-auto bg-gray-900"
         >
-            <div className="sticky top-0 h-screen w-full flex">
-                {/* Left 50% - Text Content */}
-                <div className="w-1/2 h-full flex items-center justify-center relative">
+            <div className="sticky top-0 h-screen w-full">
+                {/* Canvas with animated position and width */}
+                <motion.div
+                    className="absolute top-0 h-full"
+                    style={{
+                        width: canvasWidth,
+                        left: canvasLeft,
+                        transition: "width 0.3s ease, left 0.3s ease",
+                    }}
+                >
+                    <ComputersCanvas scrollProgress={scrollYProgress} />
+                </motion.div>
+
+                {/* Text container */}
+                <motion.div
+                    className="absolute top-0 left-0 h-full w-1/2 flex items-center justify-center"
+                    style={{
+                        opacity: showText,
+                        pointerEvents: "none", // avoids blocking canvas before it shows
+                    }}
+                >
                     {sections.map((section, i) => {
                         const start = i * progressPerSection;
                         const end = start + progressPerSection;
@@ -75,32 +113,11 @@ const Computer = () => {
                             [50, 0, 0, -50]
                         );
 
-                        const rotate = useTransform(
-                            scrollYProgress,
-                            [start, end],
-                            [-10, 10]
-                        );
-
                         return (
                             <motion.div
                                 key={section.id}
                                 className="absolute text-center px-4"
-                                style={{
-                                    opacity,
-                                    y: translateY,
-                                    rotateY: -10, // Initial tilt in Y-direction
-                                    transformStyle: "preserve-3d", // Ensures 3D effect
-                                }}
-                                whileHover={{
-                                    rotateY: 0,         // Animate to face front
-                                    rotateX: 5,         // Slight upward tilt
-                                    scale: 1.05,
-                                    transition: {
-                                        type: "spring",
-                                        stiffness: 100,
-                                        damping: 10,
-                                    },
-                                }}
+                                style={{ opacity, y: translateY }}
                             >
                                 <motion.h1 className="text-lime-400 text-6xl font-bold mb-4">
                                     {section.title}
@@ -109,15 +126,9 @@ const Computer = () => {
                                     {section.content}
                                 </motion.p>
                             </motion.div>
-
                         );
                     })}
-                </div>
-
-                {/* Right 50% - ComputersCanvas */}
-                <div className="w-1/2 h-full">
-                    <ComputersCanvas scrollProgress={scrollYProgress} />
-                </div>
+                </motion.div>
             </div>
         </section>
     );

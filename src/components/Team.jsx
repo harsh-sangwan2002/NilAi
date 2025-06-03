@@ -63,7 +63,10 @@ const TeamProfiles = () => {
   };
 
   return (
-    <div id="team" className="min-h-screen w-full bg-gray-900 text-blue-50 py-20 px-4 md:px-20">
+    <div
+      id="team"
+      className="min-h-screen w-full bg-gray-900 text-blue-50 py-20 px-4 md:px-20"
+    >
       <div className="max-w-screen-xl mx-auto">
         <h2 className="text-3xl md:text-3xl font-extrabold text-green-400 mb-16 text-center">
           The Team - NilAI
@@ -76,34 +79,39 @@ const TeamProfiles = () => {
             return (
               <motion.div
                 key={index}
-                ref={ref}
-                onMouseMove={(e) => handleMouseMove(e, index)}
-                onMouseLeave={() => handleMouseLeave(index)}
                 initial={{ opacity: 0, y: 100 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
-                className="w-full md:w-[45%] bg-black p-8 rounded-3xl shadow-xl cursor-pointer min-h-[480px] transform-style-preserve-3d will-change-transform"
-                style={{
-                  transformStyle: "preserve-3d",
-                  willChange: "transform",
-                  backfaceVisibility: "hidden",
-                  perspective: "1000px", // optional enhancement
-                }}
+                className="w-full md:w-[45%]"
               >
-                <div className="flex items-center space-x-6 mb-6">
-                  <img
-                    src={member.imageSrc}
-                    alt={member.name}
-                    className="w-24 h-24 object-cover rounded-full border-4 border-green-400"
-                  />
-                  <div>
-                    <h3 className="text-xl md:text-4xl font-bold">{member.name}</h3>
-                    <p className="text-md md:text-lg text-gray-300">{member.title}</p>
+                <div
+                  ref={ref}
+                  onMouseMove={(e) => handleMouseMove(e, index)}
+                  onMouseLeave={() => handleMouseLeave(index)}
+                  className="bg-black p-8 rounded-3xl shadow-xl cursor-pointer min-h-[480px] transform-style-preserve-3d will-change-transform"
+                  style={{
+                    transformStyle: "preserve-3d",
+                    backfaceVisibility: "hidden",
+                    perspective: "1000px",
+                  }}
+                >
+                  <div className="flex items-center space-x-6 mb-6">
+                    <img
+                      src={member.imageSrc}
+                      alt={member.name}
+                      className="w-24 h-24 object-cover rounded-full border-4 border-green-400"
+                    />
+                    <div>
+                      <h3 className="text-xl md:text-4xl font-bold">{member.name}</h3>
+                      <p className="text-md md:text-lg text-gray-300">
+                        {member.title}
+                      </p>
+                    </div>
                   </div>
+                  <p className="text-2xl whitespace-pre-line leading-relaxed text-gray-200">
+                    {member.description}
+                  </p>
                 </div>
-                <p className="text-2xl whitespace-pre-line leading-relaxed text-gray-200">
-                  {member.description}
-                </p>
               </motion.div>
             );
           })}
