@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 const NavBar = lazy(() => import("./components/Navbar"));
 const Hero = lazy(() => import("./components/Hero"));
 const Problem = lazy(() => import("./components/Problem"));
@@ -13,20 +13,22 @@ const Footer = lazy(() => import("./components/Footer"));
 
 function App() {
   return (
-    <div>
+    <Router>
       <Suspense fallback={<div>Loading...</div>}>
-        <NavBar />
-        <Hero />
-        <Problem />
-        <ProblemStats />
-        <Solution />
-        <Proposition />
-        <Computer />
-        <Team />
-        <Contact />
-        <Footer />
+        <Routes>
+          <Route path="/" element={[<NavBar />,
+          <Hero />,
+          <Problem />,
+          <ProblemStats />,
+          <Solution />,
+          <Proposition />,
+          <Computer />,
+          <Team />,
+          <Contact />,
+          <Footer />]} />
+        </Routes>
       </Suspense>
-    </div>
+    </Router>
   );
 }
 
