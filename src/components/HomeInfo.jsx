@@ -2,15 +2,15 @@ import { Link } from "react-router-dom";
 import { arrow } from "../../public/icons";
 
 const baseBoxClasses =
-  "info-box flex flex-col items-center justify-center text-center gap-4 bg-blue-500 text-white p-6 rounded-xl shadow-lg mx-4";
+  "info-box flex flex-col items-center justify-center text-center gap-4 bg-[#111827] text-white p-6 rounded-xl shadow-lg mx-4";
 
 const baseBtnClasses =
-  "inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-semibold transition-all hover:scale-105 hover:shadow-md";
+  "bg-gradient-to-r from-blue-500 to-blue-700 inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-semibold transition-all hover:scale-105 hover:shadow-md";
 
 const HomeInfo = ({ currentStage }) => {
   if (currentStage === 1)
     return (
-      <h1 className="sm:text-xl text-base sm:leading-snug leading-snug text-center bg-blue-500 rounded-xl py-4 px-8 text-white mx-5 shadow-lg">
+      <h1 className="sm:text-xl text-base sm:leading-snug leading-snug text-center bg-[#111827] rounded-xl py-4 px-8 text-white mx-5 shadow-lg">
         Hi, I'm
         <span className="font-semibold mx-2 text-white">Adrian</span>
         👋
@@ -27,7 +27,7 @@ const HomeInfo = ({ currentStage }) => {
         </p>
         <Link to="/about" className={baseBtnClasses}>
           Learn more
-          <img src={arrow} alt="arrow" className="w-4 h-4 object-contain transition-transform group-hover:translate-x-1" />
+          <img src={arrow} alt="arrow" className="w-4 h-4 object-contain" />
         </Link>
       </div>
     );

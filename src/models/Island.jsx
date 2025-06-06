@@ -18,6 +18,7 @@ export function Island({
   const lastX = useRef(0);
   const rotationSpeed = useRef(0);
   const dampingFactor = 0.95;
+  const keyRotationSpeed = 0.02; // Speed when using arrow keys
 
   useEffect(() => {
     camera.position.set(0, 3, 5);
@@ -48,16 +49,31 @@ export function Island({
     lastX.current = clientX;
   };
 
+  // Handle arrow key rotation
+  const handleKeyDown = (e) => {
+    if (!islandRef.current) return;
+    if (e.key === "ArrowLeft") {
+      islandRef.current.rotation.y -= keyRotationSpeed;
+      rotationSpeed.current = -keyRotationSpeed;
+    } else if (e.key === "ArrowRight") {
+      islandRef.current.rotation.y += keyRotationSpeed;
+      rotationSpeed.current = keyRotationSpeed;
+    }
+  };
+
   useEffect(() => {
     const canvas = gl.domElement;
+
     canvas.addEventListener("pointerdown", handlePointerDown);
     canvas.addEventListener("pointerup", handlePointerUp);
     canvas.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
       canvas.removeEventListener("pointerdown", handlePointerDown);
       canvas.removeEventListener("pointerup", handlePointerUp);
       canvas.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [gl, isRotating]);
 
@@ -94,7 +110,6 @@ export function Island({
         setCurrentStage(null);
     }
   });
-
 
   return (
     <a.group ref={islandRef} {...props} dispose={null}>
