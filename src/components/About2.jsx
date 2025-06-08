@@ -52,7 +52,7 @@ const TypingText = ({ text, className, startTyping, onTypingComplete, forceStart
     return (
         <div
             ref={containerRef}
-            className={`${className} text-white`}
+            className={`${className}`}
             style={{ whiteSpace: "pre-wrap" }}
         >
             {displayed}
