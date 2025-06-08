@@ -95,15 +95,14 @@ const About2 = () => {
                 {/* First Typing Text */}
                 <TypingText
                     text="In recent years, the climate challenge has intensified. But with $2 trillion in infrastructure spending ahead..."
-                    className="w-full max-w-3xl text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-snug mb-6"
+                    className="w-full text-yellow-300 max-w-3xl text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-snug mb-6"
                     startTyping={true}
                     onTypingComplete={() => setFirstDone(true)}
                 />
 
-                {/* Second Typing Text */}
                 <TypingText
                     text="We have an opportunity to redesign the system without rebuilding it!"
-                    className="w-full max-w-3xl text-lg sm:text-xl md:text-2xl lg:text-3xl leading-snug"
+                    className="w-full text-yellow-300 max-w-3xl text-lg sm:text-xl md:text-2xl lg:text-4xl leading-snug"
                     startTyping={firstDone}
                     forceStart={true}
                 />

@@ -94,7 +94,7 @@ const About3 = () => {
                 {/* First TypingText */}
                 <TypingText
                     text="Healthcare alone contributes 4.4% of global emissions, more than the entire aviation industry."
-                    className="w-full max-w-3xl text-xl sm:text-2xl md:text-3xl lg:text-4xl text-purple-50 leading-snug mb-6"
+                    className="w-full max-w-3xl text-xl sm:text-2xl md:text-3xl lg:text-4xl text-yellow-300 leading-snug mb-6"
                     startTyping={true}
                     onTypingComplete={() => setFirstDone(true)}
                 />
@@ -102,7 +102,7 @@ const About3 = () => {
                 {/* Second TypingText */}
                 <TypingText
                     text="Hospitals run 24/7. Critical equipment never sleeps. Audits today?"
-                    className="w-full max-w-3xl text-lg sm:text-xl md:text-2xl lg:text-3xl leading-snug text-white"
+                    className="w-full max-w-3xl text-lg sm:text-xl md:text-2xl lg:text-4xl leading-snug text-yellow-300"
                     startTyping={firstDone}
                     forceStart={true}
                 />
