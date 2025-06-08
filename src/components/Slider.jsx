@@ -1,6 +1,30 @@
+import { useEffect, useRef, useState } from "react";
+
 const Slider = () => {
+    const containerRef = useRef(null);
+    const [animationKey, setAnimationKey] = useState(0);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    // Bump animation key to re-trigger animation
+                    setAnimationKey(prev => prev + 1);
+                }
+            },
+            { threshold: 0.5 }
+        );
+
+        if (containerRef.current) observer.observe(containerRef.current);
+
+        return () => {
+            if (containerRef.current) observer.unobserve(containerRef.current);
+        };
+    }, []);
+
     return (
         <div
+            ref={containerRef}
             style={{
                 overflow: "hidden",
                 position: "relative",
@@ -24,10 +48,11 @@ const Slider = () => {
                 }}
             >
                 <div
+                    key={animationKey} // <- re-renders when key changes
                     style={{
                         display: "inline-block",
                         paddingLeft: "100%",
-                        animation: "slide-left 40s linear infinite",
+                        animation: "slide-left 7s linear infinite",
                         fontSize: "6vw",
                         fontWeight: "bold",
                         whiteSpace: "nowrap",
@@ -36,9 +61,6 @@ const Slider = () => {
                         textAlign: "center",
                     }}
                 >
-                    The places we heal shouldn’t harm the planet &nbsp; &nbsp; &nbsp;
-                    The places we heal shouldn’t harm the planet &nbsp; &nbsp; &nbsp;
-                    The places we heal shouldn’t harm the planet &nbsp; &nbsp; &nbsp;
                     The places we heal shouldn’t harm the planet &nbsp; &nbsp; &nbsp;
                 </div>
             </div>
