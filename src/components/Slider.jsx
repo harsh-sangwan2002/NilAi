@@ -52,8 +52,8 @@ const Slider = () => {
                     style={{
                         display: "inline-block",
                         paddingLeft: "100%",
-                        animation: "slide-left 7s linear infinite",
-                        fontSize: "6vw",
+                        animation: "slide-left 10s linear infinite",
+                        fontSize: "12vw",
                         fontWeight: "bold",
                         whiteSpace: "nowrap",
                         textShadow: "2px 2px 8px rgba(0,0,0,0.7)",

@@ -33,10 +33,10 @@ const scratchLines = [
 const Hero = () => {
     const [step, setStep] = useState(0);
     const totalImages = 8;
-
-    // State to track which scratch line to display
     const [currentScratchIndex, setCurrentScratchIndex] = useState(null);
+    const [scrollProgress, setScrollProgress] = useState(0);
 
+    // Handle loading steps
     useEffect(() => {
         if (step < totalImages) {
             const interval = setInterval(() => {
@@ -46,12 +46,10 @@ const Hero = () => {
         }
     }, [step]);
 
-    // When video is playing, cycle through scratch lines randomly every 2.5s
+    // Handle scratch lines after loading
     useEffect(() => {
         if (step >= totalImages) {
-            // Initially pick a random line
             setCurrentScratchIndex(Math.floor(Math.random() * scratchLines.length));
-
             const scratchInterval = setInterval(() => {
                 setCurrentScratchIndex((prev) => {
                     let next;
@@ -61,13 +59,29 @@ const Hero = () => {
                     return next;
                 });
             }, 2500);
-
             return () => clearInterval(scratchInterval);
         }
     }, [step]);
 
+    // Handle scroll to control split animation
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollTop = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight - windowHeight;
+            const progress = Math.min(scrollTop / (documentHeight / 2), 1); // Adjust divisor for sensitivity
+            setScrollProgress(progress);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
     return (
-        <div id="hero" className="w-full h-screen relative overflow-hidden flex flex-col items-center justify-center">
+        <div
+            id="hero"
+            className="w-full h-screen relative overflow-hidden flex flex-col items-center justify-center"
+        >
             {/* Video Background */}
             {step >= totalImages && (
                 <video
@@ -78,6 +92,23 @@ const Hero = () => {
                     loop
                     playsInline
                 />
+            )}
+
+            {/* Split Overlay with Black Bars */}
+            {step >= totalImages && (
+                <div className="absolute top-0 left-0 w-full h-full z-10 split-overlay">
+                    {[...Array(8)].map((_, index) => (
+                        <div
+                            key={index}
+                            className="split-bar"
+                            style={{
+                                left: `${(index * 12.5)}%`, // 8 bars, each taking 12.5% of width
+                                width: `${scrollProgress * 10}%`, // Bar width grows with scroll
+                                transition: "width 0.3s ease",
+                            }}
+                        />
+                    ))}
+                </div>
             )}
 
             {/* Overlay Content */}
@@ -106,14 +137,19 @@ const Hero = () => {
                         </div>
                     </>
                 ) : (
-                    <h1 className="text-white text-[12vw] font-bold animate-fadeInOut" style={{ textTransform: 'uppercase' }}> Breathe</h1>
+                    <h1
+                        className="text-white text-[12vw] font-bold animate-fadeInOut"
+                        style={{ textTransform: "uppercase" }}
+                    >
+                        Breathe
+                    </h1>
                 )}
             </div>
 
-            {/* Single random scratch line SVG */}
+            {/* Scratch Line SVG */}
             {step >= totalImages && currentScratchIndex !== null && (
                 <svg
-                    className="absolute w-full h-full z-10 pointer-events-none"
+                    className="absolute w-full h-full z-15 pointer-events-none"
                     viewBox="0 0 100 100"
                     preserveAspectRatio="none"
                 >
@@ -128,10 +164,12 @@ const Hero = () => {
                 </svg>
             )}
 
-            {/* Fallback background during loading */}
-            {step < totalImages && <div className="absolute top-0 left-0 w-full h-full bg-black z-0" />}
+            {/* Fallback Background */}
+            {step < totalImages && (
+                <div className="absolute top-0 left-0 w-full h-full bg-black z-0" />
+            )}
 
-            {/* CSS for Scratch Animation */}
+            {/* CSS for Animations */}
             <style>
                 {`
           .scratch-line {
@@ -166,6 +204,22 @@ const Hero = () => {
 
           .animate-bounce {
             animation: bounce 1s infinite;
+          }
+
+          .split-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+          }
+
+          .split-bar {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            background: black;
           }
         `}
             </style>
