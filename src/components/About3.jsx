@@ -63,38 +63,25 @@ const TypingText = ({ text, className, startTyping, onTypingComplete, forceStart
 
 const About3 = () => {
     const [firstDone, setFirstDone] = useState(false);
-    const [activeImageIndex, setActiveImageIndex] = useState(0);
-
-    const images = ["/images/cover5.jpg", "/images/cover6.jpg"];
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setActiveImageIndex((prev) => (prev + 1) % images.length);
-        }, 8000);
-        return () => clearInterval(interval);
-    }, []);
 
     return (
-        <div className="relative w-full h-screen">
-            {/* Background */}
-            <div className="absolute inset-0 z-0">
-                {images.map((image, index) => (
-                    <img
-                        key={image}
-                        src={image}
-                        alt={`About ${index}`}
-                        className={`w-full h-full object-cover absolute transition-opacity duration-[2000ms] ${index === activeImageIndex ? "opacity-100" : "opacity-0"
-                            }`}
-                    />
-                ))}
-            </div>
+        <div className="relative w-full h-screen overflow-hidden">
+            {/* Background Video */}
+            <video
+                className="absolute top-0 left-0 w-full h-full object-cover z-0"
+                src="/videos/4.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+            />
 
             {/* Foreground Content */}
-            <div className="relative z-10 flex flex-col justify-center items-center h-full px-4 sm:px-8 text-center">
+            <div className="relative z-10 flex flex-col justify-center items-center h-full px-4 sm:px-8 text-center bg-black/40">
                 {/* First TypingText */}
                 <TypingText
                     text="Healthcare alone contributes 4.4% of global emissions, more than the entire aviation industry."
-                    className="w-full max-w-3xl text-xl sm:text-2xl md:text-3xl lg:text-4xl text-orange-500 leading-snug mb-6"
+                    className="w-full max-w-3xl text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white leading-snug mb-6"
                     startTyping={true}
                     onTypingComplete={() => setFirstDone(true)}
                 />
@@ -102,7 +89,7 @@ const About3 = () => {
                 {/* Second TypingText */}
                 <TypingText
                     text="Hospitals run 24/7. Critical equipment never sleeps. Audits today?"
-                    className="w-full max-w-3xl text-lg sm:text-xl md:text-2xl lg:text-4xl leading-snug text-orange-500"
+                    className="w-full max-w-3xl text-lg sm:text-xl md:text-2xl lg:text-4xl leading-snug text-white"
                     startTyping={firstDone}
                     forceStart={true}
                 />

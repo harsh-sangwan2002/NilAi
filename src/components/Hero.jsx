@@ -106,7 +106,7 @@ const Hero = () => {
                         </div>
                     </>
                 ) : (
-                    <h1 className="text-white text-[6vw] font-bold animate-fadeInOut">NILAI</h1>
+                    <h1 className="text-white text-[12vw] font-bold animate-fadeInOut" style={{ textTransform: 'uppercase' }}> Breathe</h1>
                 )}
             </div>
 

@@ -3,44 +3,57 @@ const Slider = () => {
         <div
             style={{
                 overflow: "hidden",
-                whiteSpace: "nowrap",
-                padding: "2rem 0",
                 position: "relative",
                 backgroundImage: "url('/images/hero.jpg')",
                 backgroundSize: "cover",
-                fontWeight: 'lighter',
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
-                color: "white", // text color on image
+                color: "white",
                 userSelect: "none",
+                height: "100vh",
+                width: "100%",
             }}
         >
             <div
                 style={{
-                    display: "inline-block",
-                    paddingLeft: "100%",
-                    animation: "slide-left 30s linear infinite",
-                    fontSize: "5rem",
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
                     whiteSpace: "nowrap",
-                    textShadow: "2px 2px 8px rgba(0,0,0,0.7)", // improve text readability on bg
                 }}
             >
-                The places we heal shouldn’t harm the planet &nbsp; &nbsp; &nbsp;
-                The places we heal shouldn’t harm the planet &nbsp; &nbsp; &nbsp;
-                The places we heal shouldn’t harm the planet &nbsp; &nbsp; &nbsp;
+                <div
+                    style={{
+                        display: "inline-block",
+                        paddingLeft: "100%",
+                        animation: "slide-left 40s linear infinite",
+                        fontSize: "6vw",
+                        fontWeight: "bold",
+                        whiteSpace: "nowrap",
+                        textShadow: "2px 2px 8px rgba(0,0,0,0.7)",
+                        textTransform: "uppercase",
+                        textAlign: "center",
+                    }}
+                >
+                    The places we heal shouldn’t harm the planet &nbsp; &nbsp; &nbsp;
+                    The places we heal shouldn’t harm the planet &nbsp; &nbsp; &nbsp;
+                    The places we heal shouldn’t harm the planet &nbsp; &nbsp; &nbsp;
+                    The places we heal shouldn’t harm the planet &nbsp; &nbsp; &nbsp;
+                </div>
             </div>
 
             <style>
                 {`
-          @keyframes slide-left {
-            0% {
-              transform: translateX(0%);
-            }
-            100% {
-              transform: translateX(-100%);
-            }
-          }
-        `}
+                    @keyframes slide-left {
+                        0% {
+                            transform: translateX(0%);
+                        }
+                        100% {
+                            transform: translateX(-100%);
+                        }
+                    }
+                `}
             </style>
         </div>
     );
